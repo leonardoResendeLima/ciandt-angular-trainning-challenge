@@ -1,27 +1,42 @@
-# CiandtAngularChallenge
+# Ciandt Angular Challenge
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 6.1.2.
+Criar um projeto Angular que liste os pokemons e exiba os seus detalhes quando clicar em um deles.
 
-## Development server
+---
+Deverão ser criados os componentes
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+- Home : Onde ficará o título de boas vindas ao app (Path : "")
+- PokemonList : Onde serão listados os pokemons (Path : "PokemonList")
+- PokemonDetail : Onde serão exibidos os detalhes do pokemon selecionado (Path : "PokemonDetail/:id")
+---
+Deverá ser criado um serviço que:
 
-## Code scaffolding
+- Recupera todos os pokemons
+- Recupera um pokemon baseado no id
+---
+A API de acesso é a seguinte (não é necessário nenhum token de autenticação)
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+https://pokeapi.co/api/v2/pokemon/?limit=10&offset=0   
+Recupera os pokemons com um limite de 10 e um offset de 0
 
-## Build
+O objeto de retorno
+```sh
+{
+"count": 949, // Contagem total de Pokemons
+"previous": null, // Endereço da lista anterior, caso haja
+"results": [
+    {
+        "url": "https://pokeapi.co/api/v2/pokemon/1/",
+        "name": "bulbasaur"
+    }
+], // Array de objetos com os resultados (Nesse caso eu omiti o restante para essa documentação)
+"next": "https://pokeapi.co/api/v2/pokemon/?limit=10&offset=10" // Endereço da próxima lista
+}
+```
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+# Momento Gambiarra
 
-## Running unit tests
+Para selecionar um pokemon é necessário accessar essa url:
+- https://pokeapi.co/api/v2/pokemon/1/
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+Onde o "1" é o id do pokemon, dependendo da forma que você construir o serviço, será necessário passar ou essa url inteira ou pegar apenas o id "1" e passar para o serviço. Não é culpa minha, culpa da api que não fornece um campo isolado com o ID.
